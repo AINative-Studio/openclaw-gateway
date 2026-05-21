@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  openclaw-gateway:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - AINATIVE_API_KEY=${AINATIVE_API_KEY}
+      - AINATIVE_API_URL=https://api.ainative.studio
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
